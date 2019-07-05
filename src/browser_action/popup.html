@@ -2,23 +2,43 @@
 <html lang="en">
 <head>
     <title>Popup</title>
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
     <style type="text/css">
         #mainPopup {
-            padding: 10px;
-            height: 200px;
-            width: 400px;
-            font-family: Helvetica, Ubuntu, Arial, sans-serif;
-        }
-        h1 {
-            font-size: 2em;
+            width: 300px;
+            margin-top: 30px;
+            margin-bottom: 30px;
         }
     </style>
 </head>
 <body>
-<script src="popup.js"></script>
-<div id="mainPopup">
-    <h1>Hello extensionizr!</h1>
-    <p id="content">To shut this popup down, edit the manifest file and remove the "default popup" key. To edit it, just edit ext/browser_action/browser_action.html. The CSS is there, too.</p>
+<div class="container">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div id="mainPopup">
+                    <h4>Meme Stats</h4>
+                    <p id="total"></p>
+                    <h4>Options</h4>
+                    <label for="downloadFolder">Downloads subfolder:</label>
+                    <br>
+                    <input class="form-control" id="downloadFolder" type="text" value="" placeholder="Memes/"/>
+                    <small class="form-text text-muted">Put the relative path in your Downloads folder.</small>
+                    <br>
+                    <input id="enablePrompt" type="checkbox"/>
+                    <label class="form-check-label" for="enablePrompt">Enable file prompt</label>
+                    <br>
+                    <small class="form-text text-muted">Enable if you would like to use the file prompt.</small>
+                    <br>
+                    <button id="save" type="button" class="btn btn-primary">Save</button>
+                    <br>
+                    <div id="status"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<script src="popup.js"></script>
 </body>
 </html>

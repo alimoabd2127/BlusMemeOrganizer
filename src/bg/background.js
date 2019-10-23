@@ -1,6 +1,6 @@
 chrome.contextMenus.create({
     "title": "Download Image",
-    "contexts": ["image", "link"],
+    "contexts": ["image"],
     "onclick": info => {
         downloadImage(info);
     }

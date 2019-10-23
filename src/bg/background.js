@@ -1,13 +1,19 @@
 chrome.contextMenus.create({
     "title": "Download Image",
-    "contexts": ["image"],
+    "contexts": ["image", "link"],
     "onclick": info => {
         downloadImage(info);
     }
 });
 
 function downloadImage(details) {
-    let re = /(?:\.([^.]+))?$/;
+    let re = /\.\w{3,4}($|\?)/;
+    let ext = re.exec(details.srcUrl)[0]
+    if (ext.endsWith("?")) {
+        ext = ext.slice(1, -1);
+    } else {
+        ext = ext.slice(1)
+    }
     chrome.storage.local.get({
         downloadFolder: "",
         enablePrompt: false,
@@ -15,14 +21,16 @@ function downloadImage(details) {
     }, function (settings) {
         settings.fileNumber++;
         chrome.downloads.download({
-            url : details.srcUrl,
-            filename : settings.downloadFolder + settings.fileNumber + "." + re.exec(details.srcUrl)[1],
-            saveAs : settings.enablePrompt
+            url: details.srcUrl,
+            filename: settings.downloadFolder + settings.fileNumber + "." + ext,
+            saveAs: settings.enablePrompt
         }, function (result) {
-            if(result === undefined){
+            if (result === undefined) {
                 alert("An error occured.  Please check your download path!")
             }
         });
-        chrome.storage.local.set({'fileNumber': settings.fileNumber});
+        chrome.storage.local.set({
+            'fileNumber': settings.fileNumber
+        });
     });
 }
